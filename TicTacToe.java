@@ -15,18 +15,13 @@ public class TicTacToe
 		boolean gameOver= false;
 		boolean isTie=false;
 		char player='x';
+		
 		while(!gameOver && !isTie)
 		{
 			printBoard(board);
-			Scanner scan =new Scanner(System.in);
-		    System.out.println("player"+ player +"enter the coordinates ");
-		    int row=scan.nextInt();
-		    int col=scan.nextInt();
-		    if(board[row][col] == ' ')
-		    {
-		    	//place the element
-		    	board[row][col]=player;
-		    	gameOver=hasWon(board, player);
+			choosePosition(board,player);
+			
+		    gameOver=hasWon(board, player);
 		    	if(gameOver==true)
 		    	{
 		    		printBoard(board);
@@ -34,6 +29,7 @@ public class TicTacToe
 		    	}
 		    	
 		    	//switch the player
+		    	
 		    	if(player=='x')
 		    	{
 		    		player='o';
@@ -43,21 +39,132 @@ public class TicTacToe
 		    		player='x';
 		    	}
 		    	
-		    }
-		    else
-		    {
-		    	System.out.println("position is already filled");
-		    }
+		        isTie=isDraw(board,player);
+			    if(isTie==true)
+			    {
+			    	printBoard(board);
+			    	System.out.println("It is a Draw Match");
+			    }
+		    	
+		  }
 		    
-		    isTie=isDraw(board);
-		    if(isTie==true)
-		    {
-		    	printBoard(board);
-		    	System.out.println("It is a Draw Match");
-		    }
+		
 		    
 		}	
-	 }
+	public static void isFilled(char[][] board, char player)
+	{
+		System.out.println("Position is already filled");
+		 if(player=='x')
+		 {
+			 player='x';
+			 choosePosition(board,player);
+		 }
+		 else {
+			 player='o';
+		 	choosePosition(board,player);
+		 }
+		 
+	}
+	 
+	
+	public static void choosePosition(char[][] board, char player)
+	{
+		Scanner scan =new Scanner(System.in);
+	    System.out.println("player"+ player +"enter the position ");
+	    int position=scan.nextInt();
+	    
+	    switch(position)
+	    {
+	    	case 1:
+	    	{
+	    		if(board[0][0] == ' ')
+	    		board[0][0]=player;
+	    		 else
+	    		 {
+	    			 isFilled( board,  player);
+	    		 }	    		break;
+	 		    
+	    	}
+	    	case 2:
+	    	{
+	    		if(board[0][1] == ' ')
+	    		board[0][1]=player;
+	    		 else 
+	    		 {
+	    			 isFilled( board,  player);
+	    		 }	    		break;
+	    	}
+	    	case 3:
+	    	{
+	    		if(board[0][2] == ' ')
+	    		board[0][2]=player;
+	    		 else
+	    		 {
+	    			 isFilled( board,  player);
+	    		 }	    		break;
+	    	}
+	    	case 4:
+	    	{
+	    		if(board[1][0] == ' ')
+	    		board[1][0]=player;
+	    		 else
+	    		 {
+	    			 isFilled( board,  player);
+	    		 }	    		break;
+	    	}
+	    	case 5:
+	    	{
+	    		if(board[1][1] == ' ')
+	    		board[1][1]=player;
+	    		 else
+	    		 {
+	    			 isFilled( board,  player);
+	    		 }	    		break;
+	    	}
+	    	case 6:
+	    	{
+	    		if(board[1][2] == ' ')
+	    		board[1][2]=player;
+	    		 else
+	    		 {
+	    			 isFilled( board,  player);
+	    		 }	    		break;
+	    	}
+	    	case 7:
+	    	{
+	    		if(board[2][0] == ' ')
+	    		board[2][0]=player;
+	    		 else {
+	    			 isFilled( board,  player);
+	    		 }
+	    		break;
+	    	}
+	    	case 8:
+	    	{
+	    		if(board[2][1] == ' ')
+	    		board[2][1]=player;
+	    		 else
+	    		 {
+	    			 isFilled( board,  player);
+	    		 }	    		break;
+	    	}
+	    	case 9:
+	    	{
+	    		if(board[2][2] == ' ')
+	    		board[2][2]=player;
+	    		 else
+	    		 {
+	    			 isFilled( board,  player);
+	    		 }	    		break;
+	    	}
+	    	default:
+	    		System.out.println("please enter the correct position");
+
+	    	
+	    }
+	  
+	    
+	}
 	
 	public static boolean hasWon(char[][] board, char player)
 	{
@@ -105,7 +212,7 @@ public class TicTacToe
 		}
 	}
 	
-	public static boolean isDraw(char[][] board)
+	public static boolean isDraw(char[][] board,char player)
 	{
 		int count=0;
 		 for(int row=0;row<board.length;row++)
@@ -118,9 +225,13 @@ public class TicTacToe
 					}
 				}
 			}
-		 if(count==9)
+		 if(hasWon( board, player)==true)
 		 {
 			 return true;
+		 }
+		 else if(count==9 )
+		 {
+			 System.out.println("It is a Draw Match");
 		 }
 		 return false;
 	}
